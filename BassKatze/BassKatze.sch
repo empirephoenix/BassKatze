@@ -79,18 +79,16 @@ Text GLabel 9300 1800 2    50   Input ~ 0
 EQ_Band
 Text GLabel 8650 1350 1    50   Input ~ 0
 PWR
-Text GLabel 7250 2100 0    50   Input ~ 0
-MIC
 Text GLabel 4850 1500 2    50   Input ~ 0
 MISO
 Text GLabel 4850 1400 2    50   Input ~ 0
 MOSI
 Text GLabel 4800 2000 2    50   Input ~ 0
 RAW_Spectrum
-Text GLabel 4800 2600 2    50   Input ~ 0
+Text GLabel 5050 2600 2    50   Input ~ 0
 Reset
 $Comp
-L BassKatze-rescue:TP4056-tp4056 U3
+L tp4056:TP4056 U3
 U 1 1 5DA87CBF
 P 1650 7100
 F 0 "U3" H 1650 7637 60  0000 C CNN
@@ -136,7 +134,6 @@ Text GLabel 1650 7550 3    50   Input ~ 0
 GND
 Wire Wire Line
 	1650 7500 1650 7550
-Connection ~ 1650 7500
 Text GLabel 1100 7250 0    50   Input ~ 0
 STDBY
 Text GLabel 1100 7150 0    50   Input ~ 0
@@ -204,8 +201,6 @@ Wire Wire Line
 	4750 1600 4850 1600
 Wire Wire Line
 	4750 2000 4800 2000
-Wire Wire Line
-	4750 2600 4800 2600
 Text GLabel 4800 2800 2    50   Input ~ 0
 EQ_Band
 Text GLabel 4800 2900 2    50   Input ~ 0
@@ -216,12 +211,8 @@ Wire Wire Line
 	4800 2900 4750 2900
 Text GLabel 4800 3000 2    50   Input ~ 0
 LED1
-Text GLabel 4800 3100 2    50   Input ~ 0
-LED2
 Wire Wire Line
 	4750 3000 4800 3000
-Wire Wire Line
-	4750 3100 4800 3100
 Text GLabel 4150 750  1    50   Input ~ 0
 PWR
 Wire Wire Line
@@ -248,13 +239,13 @@ $EndComp
 $Comp
 L Device:R R2
 U 1 1 5DB02B41
-P 7500 2100
-F 0 "R2" V 7293 2100 50  0000 C CNN
-F 1 "22KOhm" V 7384 2100 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 7430 2100 50  0001 C CNN
-F 3 "~" H 7500 2100 50  0001 C CNN
-	1    7500 2100
-	0    1    1    0   
+P 7050 2500
+F 0 "R2" V 6843 2500 50  0000 C CNN
+F 1 "26KOhm" V 6934 2500 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 6980 2500 50  0001 C CNN
+F 3 "~" H 7050 2500 50  0001 C CNN
+	1    7050 2500
+	-1   0    0    1   
 $EndComp
 $Comp
 L Device:C C6
@@ -307,10 +298,6 @@ PWR
 Wire Wire Line
 	7650 2400 7700 2400
 Wire Wire Line
-	7650 2100 7750 2100
-Wire Wire Line
-	7350 2100 7250 2100
-Wire Wire Line
 	8650 1350 8650 1500
 $Comp
 L Device:C C5
@@ -328,7 +315,7 @@ Wire Wire Line
 	8650 1500 8650 1600
 Text GLabel 8350 1500 0    50   Input ~ 0
 GND
-Text GLabel 8050 2700 3    50   Input ~ 0
+Text GLabel 8050 2750 3    50   Input ~ 0
 GND
 Wire Wire Line
 	8650 2600 8650 2700
@@ -679,18 +666,16 @@ Connection ~ 1550 5450
 $Comp
 L Device:R R5
 U 1 1 5DB0845E
-P 2200 2450
-F 0 "R5" H 2270 2496 50  0000 L CNN
-F 1 "10KOhm" H 2270 2405 50  0000 L CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 2130 2450 50  0001 C CNN
-F 3 "~" H 2200 2450 50  0001 C CNN
-	1    2200 2450
-	1    0    0    -1  
+P 4900 2450
+F 0 "R5" H 4970 2496 50  0000 L CNN
+F 1 "10KOhm" H 4970 2405 50  0000 L CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 4830 2450 50  0001 C CNN
+F 3 "~" H 4900 2450 50  0001 C CNN
+	1    4900 2450
+	-1   0    0    1   
 $EndComp
-Text GLabel 2200 2300 1    50   Input ~ 0
-Reset
 Text GLabel 4800 3400 2    50   Input ~ 0
-CHARGE
+CHRG
 Text GLabel 4800 3500 2    50   Input ~ 0
 STDBY
 Wire Wire Line
@@ -703,7 +688,7 @@ U 1 1 5DB12BF9
 P 1950 2600
 F 0 "D1" H 1950 2384 50  0000 C CNN
 F 1 "D" H 1950 2475 50  0000 C CNN
-F 2 "Diode_THT:D_DO-15_P2.54mm_Vertical_KathodeUp" H 1950 2600 50  0001 C CNN
+F 2 "Diode_SMD:D_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 1950 2600 50  0001 C CNN
 F 3 "~" H 1950 2600 50  0001 C CNN
 	1    1950 2600
 	-1   0    0    1   
@@ -714,7 +699,7 @@ U 1 1 5DB1380F
 P 1950 2300
 F 0 "Charge_Powerup1" H 1950 2084 50  0000 C CNN
 F 1 "D" H 1950 2175 50  0000 C CNN
-F 2 "Diode_THT:D_DO-15_P5.08mm_Vertical_KathodeUp" H 1950 2300 50  0001 C CNN
+F 2 "Diode_SMD:D_1206_3216Metric" H 1950 2300 50  0001 C CNN
 F 3 "~" H 1950 2300 50  0001 C CNN
 	1    1950 2300
 	-1   0    0    1   
@@ -731,25 +716,120 @@ Text GLabel 1800 2250 1    50   Input ~ 0
 Wire Wire Line
 	1800 2250 1800 2300
 $Comp
-L Connector:Conn_01x02_Male J2
+L Connector:Conn_01x02_Male BAT1
 U 1 1 5DADAC8C
 P 1850 5950
-F 0 "J2" V 1912 5994 50  0000 L CNN
-F 1 "Conn_01x02_Male" V 2003 5994 50  0000 L CNN
+F 0 "BAT1" V 1912 5994 50  0000 L CNN
+F 1 "BAT" V 2003 5994 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1210_3225Metric" H 1850 5950 50  0001 C CNN
 F 3 "~" H 1850 5950 50  0001 C CNN
 	1    1850 5950
 	0    1    1    0   
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J1
+L Connector:Conn_01x02_Female Charge1
 U 1 1 5DAD3249
 P 3550 6850
-F 0 "J1" H 3578 6826 50  0000 L CNN
-F 1 "Conn_01x02_Female" H 3578 6735 50  0000 L CNN
+F 0 "Charge1" H 3578 6826 50  0000 L CNN
+F 1 "Charge" H 3578 6735 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1210_3225Metric" H 3550 6850 50  0001 C CNN
 F 3 "~" H 3550 6850 50  0001 C CNN
 	1    3550 6850
 	1    0    0    -1  
 $EndComp
+NoConn ~ 10850 5150
+$Comp
+L Connector:Conn_01x05_Male MIC1
+U 1 1 5DB13911
+P 6550 2250
+F 0 "MIC1" H 6658 2431 50  0000 C CNN
+F 1 "MIC" H 6658 2340 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical" H 6550 2250 50  0001 C CNN
+F 3 "~" H 6550 2250 50  0001 C CNN
+	1    6550 2250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8050 2700 8050 2750
+Connection ~ 8050 2700
+NoConn ~ 4750 2500
+NoConn ~ 4750 2400
+NoConn ~ 4750 2300
+NoConn ~ 4750 1800
+NoConn ~ 4750 1700
+NoConn ~ 4750 1300
+NoConn ~ 4750 1200
+NoConn ~ 4750 1100
+NoConn ~ 3550 1400
+NoConn ~ 3550 1300
+NoConn ~ 3550 1100
+NoConn ~ 4250 800 
+NoConn ~ 1150 7050
+NoConn ~ 1200 1150
+Text GLabel 5050 2300 2    50   Input ~ 0
+PWR
+Wire Wire Line
+	4750 2600 4900 2600
+Connection ~ 4900 2600
+Wire Wire Line
+	4900 2600 5050 2600
+Wire Wire Line
+	4900 2300 5050 2300
+Wire Wire Line
+	7000 1600 8650 1600
+Connection ~ 8650 1600
+Wire Wire Line
+	6750 2150 7000 2150
+Wire Wire Line
+	7000 1600 7000 2150
+Wire Wire Line
+	7200 2700 7200 2050
+Wire Wire Line
+	7200 2700 8050 2700
+$Comp
+L Device:R R6
+U 1 1 5DC36455
+P 6900 2350
+F 0 "R6" V 6693 2350 50  0000 C CNN
+F 1 "147KOhm" V 6784 2350 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 6830 2350 50  0001 C CNN
+F 3 "~" H 6900 2350 50  0001 C CNN
+	1    6900 2350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6750 2050 7200 2050
+Wire Wire Line
+	7300 2100 7300 2350
+Wire Wire Line
+	7300 2350 7050 2350
+Wire Wire Line
+	7300 2100 7750 2100
+Connection ~ 7050 2350
+Wire Wire Line
+	7050 2650 7050 2700
+Wire Wire Line
+	7050 2700 7200 2700
+Connection ~ 7200 2700
+Text GLabel 4800 2100 2    50   Input ~ 0
+Gain_Select
+Text GLabel 6850 1700 1    50   Input ~ 0
+Gain_Select
+Wire Wire Line
+	6750 2250 6850 2250
+Wire Wire Line
+	6850 2250 6850 1700
+NoConn ~ 4750 3100
+Text GLabel 6850 2500 3    50   Input ~ 0
+Attack_Select
+Wire Wire Line
+	6750 2450 6850 2450
+Wire Wire Line
+	6850 2450 6850 2500
+Text GLabel 4800 2200 2    50   Input ~ 0
+Attack_Select
+Wire Wire Line
+	4750 2100 4800 2100
+Wire Wire Line
+	4750 2200 4800 2200
 $EndSCHEMATC

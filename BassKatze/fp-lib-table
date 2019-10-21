@@ -1,3 +1,5 @@
 (fp_lib_table
   (lib (name tp4056)(type KiCad)(uri ${KIPRJMOD}/tp4056)(options "")(descr ""))
+  (lib (name BassKatze)(type KiCad)(uri /home/empire/workspace/BassKatze/BassKatze)(options "")(descr ""))
+  (lib (name ESP8266)(type KiCad)(uri ${KIPRJMOD}/kicad-ESP8266-master/ESP8266.pretty)(options "")(descr ""))
 )
