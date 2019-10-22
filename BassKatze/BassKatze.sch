@@ -201,14 +201,10 @@ Wire Wire Line
 	4750 1600 4850 1600
 Wire Wire Line
 	4750 2000 4800 2000
-Text GLabel 4800 2800 2    50   Input ~ 0
+Text GLabel 5600 2650 2    50   Input ~ 0
 EQ_Band
-Text GLabel 4800 2900 2    50   Input ~ 0
+Text GLabel 5600 2750 2    50   Input ~ 0
 EQ_Reset
-Wire Wire Line
-	4750 2800 4800 2800
-Wire Wire Line
-	4800 2900 4750 2900
 Text GLabel 4800 3000 2    50   Input ~ 0
 LED1
 Wire Wire Line
@@ -752,8 +748,6 @@ $EndComp
 Wire Wire Line
 	8050 2700 8050 2750
 Connection ~ 8050 2700
-NoConn ~ 4750 2500
-NoConn ~ 4750 2400
 NoConn ~ 4750 2300
 NoConn ~ 4750 1800
 NoConn ~ 4750 1700
@@ -832,4 +826,29 @@ Wire Wire Line
 	4750 2100 4800 2100
 Wire Wire Line
 	4750 2200 4800 2200
+Wire Wire Line
+	5600 2650 5600 2400
+Wire Wire Line
+	5600 2400 4750 2400
+Wire Wire Line
+	4750 2500 5500 2500
+Wire Wire Line
+	5500 2500 5500 2750
+Wire Wire Line
+	5500 2750 5600 2750
+$Comp
+L Connector:Conn_01x02_Female J1
+U 1 1 5DB011DE
+P 5050 2800
+F 0 "J1" H 5078 2776 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 5078 2685 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 5050 2800 50  0001 C CNN
+F 3 "~" H 5050 2800 50  0001 C CNN
+	1    5050 2800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4750 2800 4850 2800
+Wire Wire Line
+	4750 2900 4850 2900
 $EndSCHEMATC
