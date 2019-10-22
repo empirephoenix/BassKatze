@@ -85,7 +85,7 @@ Text GLabel 4850 1400 2    50   Input ~ 0
 MOSI
 Text GLabel 4800 2000 2    50   Input ~ 0
 RAW_Spectrum
-Text GLabel 5050 2600 2    50   Input ~ 0
+Text GLabel 5650 2250 2    50   Input ~ 0
 Reset
 $Comp
 L tp4056:TP4056 U3
@@ -662,12 +662,12 @@ Connection ~ 1550 5450
 $Comp
 L Device:R R5
 U 1 1 5DB0845E
-P 4900 2450
-F 0 "R5" H 4970 2496 50  0000 L CNN
-F 1 "10KOhm" H 4970 2405 50  0000 L CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 4830 2450 50  0001 C CNN
-F 3 "~" H 4900 2450 50  0001 C CNN
-	1    4900 2450
+P 5600 2100
+F 0 "R5" H 5670 2146 50  0000 L CNN
+F 1 "10KOhm" H 5670 2055 50  0000 L CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 5530 2100 50  0001 C CNN
+F 3 "~" H 5600 2100 50  0001 C CNN
+	1    5600 2100
 	-1   0    0    1   
 $EndComp
 Text GLabel 4800 3400 2    50   Input ~ 0
@@ -748,7 +748,6 @@ $EndComp
 Wire Wire Line
 	8050 2700 8050 2750
 Connection ~ 8050 2700
-NoConn ~ 4750 2300
 NoConn ~ 4750 1800
 NoConn ~ 4750 1700
 NoConn ~ 4750 1300
@@ -757,18 +756,10 @@ NoConn ~ 4750 1100
 NoConn ~ 3550 1400
 NoConn ~ 3550 1300
 NoConn ~ 3550 1100
-NoConn ~ 4250 800 
 NoConn ~ 1150 7050
 NoConn ~ 1200 1150
-Text GLabel 5050 2300 2    50   Input ~ 0
+Text GLabel 5650 1950 2    50   Input ~ 0
 PWR
-Wire Wire Line
-	4750 2600 4900 2600
-Connection ~ 4900 2600
-Wire Wire Line
-	4900 2600 5050 2600
-Wire Wire Line
-	4900 2300 5050 2300
 Wire Wire Line
 	7000 1600 8650 1600
 Connection ~ 8650 1600
@@ -851,4 +842,55 @@ Wire Wire Line
 	4750 2800 4850 2800
 Wire Wire Line
 	4750 2900 4850 2900
+Wire Wire Line
+	4250 800  4150 800 
+Connection ~ 4150 800 
+Wire Wire Line
+	5650 2250 5600 2250
+Wire Wire Line
+	5650 1950 5600 1950
+Wire Wire Line
+	5600 2250 5600 2350
+Wire Wire Line
+	5600 2350 5350 2350
+Wire Wire Line
+	5350 2350 5350 2600
+Wire Wire Line
+	4750 2600 5350 2600
+Connection ~ 5600 2250
+$Comp
+L Device:R R8
+U 1 1 5DB18D48
+P 5750 1700
+F 0 "R8" V 5543 1700 50  0000 C CNN
+F 1 "5KOhm" V 5634 1700 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 5680 1700 50  0001 C CNN
+F 3 "~" H 5750 1700 50  0001 C CNN
+	1    5750 1700
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R7
+U 1 1 5DB193BE
+P 5450 1700
+F 0 "R7" V 5243 1700 50  0000 C CNN
+F 1 "1KOhm" V 5334 1700 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 5380 1700 50  0001 C CNN
+F 3 "~" H 5450 1700 50  0001 C CNN
+	1    5450 1700
+	0    1    1    0   
+$EndComp
+Text GLabel 5300 1700 0    50   Input ~ 0
+GND
+Text GLabel 5900 1700 2    50   Input ~ 0
+PWR
+Wire Wire Line
+	5600 1700 5600 1850
+Wire Wire Line
+	5600 1850 5450 1850
+Wire Wire Line
+	5450 1850 5450 2300
+Wire Wire Line
+	5450 2300 4750 2300
+Connection ~ 5600 1700
 $EndSCHEMATC
