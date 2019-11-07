@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:BassKatze-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -82,7 +83,7 @@ Text GLabel 4850 1500 2    50   Input ~ 0
 MISO
 Text GLabel 4850 1400 2    50   Input ~ 0
 MOSI
-Text GLabel 4800 2000 2    50   Input ~ 0
+Text GLabel 5700 1250 2    50   Input ~ 0
 RAW_Spectrum
 Text GLabel 5650 2250 2    50   Input ~ 0
 Reset
@@ -198,8 +199,6 @@ Wire Wire Line
 	4850 1500 4750 1500
 Wire Wire Line
 	4750 1600 4850 1600
-Wire Wire Line
-	4750 2000 4800 2000
 Text GLabel 5600 2650 2    50   Input ~ 0
 EQ_Band
 Text GLabel 5600 2750 2    50   Input ~ 0
@@ -879,8 +878,6 @@ F 3 "~" H 5450 1700 50  0001 C CNN
 	1    5450 1700
 	0    1    1    0   
 $EndComp
-Text GLabel 5300 1700 0    50   Input ~ 0
-GND
 Text GLabel 5900 1700 2    50   Input ~ 0
 PWR
 Wire Wire Line
@@ -892,4 +889,41 @@ Wire Wire Line
 Wire Wire Line
 	5450 2300 4750 2300
 Connection ~ 5600 1700
+$Comp
+L Device:R R10
+U 1 1 5DC450EB
+P 5550 1250
+F 0 "R10" V 5343 1250 50  0000 C CNN
+F 1 "5KOhm" V 5434 1250 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 5480 1250 50  0001 C CNN
+F 3 "~" H 5550 1250 50  0001 C CNN
+	1    5550 1250
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R9
+U 1 1 5DC450F1
+P 5250 1250
+F 0 "R9" V 5043 1250 50  0000 C CNN
+F 1 "1KOhm" V 5134 1250 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 5180 1250 50  0001 C CNN
+F 3 "~" H 5250 1250 50  0001 C CNN
+	1    5250 1250
+	0    1    1    0   
+$EndComp
+Text GLabel 5100 1250 0    50   Input ~ 0
+GND
+Wire Wire Line
+	5400 1250 5400 1400
+Connection ~ 5400 1250
+Wire Wire Line
+	5100 1250 5100 1700
+Wire Wire Line
+	5100 1700 5300 1700
+Wire Wire Line
+	5400 1400 5200 1400
+Wire Wire Line
+	5200 1400 5200 2000
+Wire Wire Line
+	4750 2000 5200 2000
 $EndSCHEMATC
