@@ -341,14 +341,6 @@ Wire Wire Line
 Wire Wire Line
 	1650 2400 1650 2600
 Connection ~ 1650 2600
-Wire Wire Line
-	1150 3250 1150 2600
-Connection ~ 1150 2600
-Wire Wire Line
-	2200 3250 2200 2600
-Connection ~ 2200 2600
-Wire Wire Line
-	2200 2600 2350 2600
 $Comp
 L Transistor_FET:IRF7404 Q1
 U 1 1 5DAAE6E1
@@ -360,22 +352,18 @@ F 3 "http://www.infineon.com/dgdl/irf7404.pdf?fileId=5546d462533600a4015355fa2b5
 	1    1650 3350
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	1450 3250 1150 3250
-Wire Wire Line
-	1850 3250 2200 3250
 $Comp
 L Device:R R4
 U 1 1 5DAB048C
 P 1650 3700
 F 0 "R4" H 1720 3746 50  0000 L CNN
-F 1 "250Ohm" H 1720 3655 50  0000 L CNN
+F 1 "10KOhm" H 1720 3655 50  0000 L CNN
 F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 1580 3700 50  0001 C CNN
 F 3 "~" H 1650 3700 50  0001 C CNN
 	1    1650 3700
 	1    0    0    -1  
 $EndComp
-Text GLabel 1650 3850 3    50   Input ~ 0
+Text GLabel 800  4300 3    50   Input ~ 0
 PWR_HOLD
 Text GLabel 4800 3300 2    50   Input ~ 0
 PWR_HOLD
@@ -699,8 +687,6 @@ F 3 "~" H 1950 2300 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	2100 2600 2200 2600
-Wire Wire Line
 	2100 2600 2100 2300
 Connection ~ 2100 2600
 Wire Wire Line
@@ -889,6 +875,98 @@ Wire Wire Line
 Wire Wire Line
 	5450 2300 4750 2300
 Connection ~ 5600 1700
+<<<<<<< HEAD
+Wire Wire Line
+	2100 2600 2350 2600
+Wire Wire Line
+	1450 3250 1450 2850
+Wire Wire Line
+	1450 2850 2100 2850
+Wire Wire Line
+	2100 2600 2100 2850
+Text GLabel 1950 3250 2    50   Input ~ 0
+BAT+
+Wire Wire Line
+	1950 3250 1900 3250
+Wire Wire Line
+	1650 3850 2150 3850
+Wire Wire Line
+	2150 3850 2150 3400
+Wire Wire Line
+	2150 3400 1900 3400
+Wire Wire Line
+	1900 3400 1900 3250
+Connection ~ 1900 3250
+Wire Wire Line
+	1900 3250 1850 3250
+$Comp
+L Device:R R11
+U 1 1 5DC820D4
+P 1500 3550
+F 0 "R11" H 1570 3596 50  0000 L CNN
+F 1 "10KOhm" H 1570 3505 50  0000 L CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 1430 3550 50  0001 C CNN
+F 3 "~" H 1500 3550 50  0001 C CNN
+	1    1500 3550
+	0    1    1    0   
+$EndComp
+Connection ~ 1650 3550
+$Comp
+L Transistor_FET:BSS138 Q2
+U 1 1 5DC86628
+P 850 3700
+F 0 "Q2" V 1193 3700 50  0000 C CNN
+F 1 "BSS138" V 1102 3700 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 1050 3625 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 850 3700 50  0001 L CNN
+	1    850  3700
+	0    -1   -1   0   
+$EndComp
+Text GLabel 1100 3450 1    50   Input ~ 0
+GND
+Wire Wire Line
+	1100 3450 1100 3600
+Wire Wire Line
+	1100 3600 1050 3600
+Wire Wire Line
+	650  3600 650  3000
+Wire Wire Line
+	650  3000 1350 3000
+Wire Wire Line
+	1350 3000 1350 3550
+$Comp
+L Device:R R9
+U 1 1 5DC974F5
+P 850 4050
+F 0 "R9" H 920 4096 50  0000 L CNN
+F 1 "10KOhm" H 920 4005 50  0000 L CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 780 4050 50  0001 C CNN
+F 3 "~" H 850 4050 50  0001 C CNN
+	1    850  4050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R10
+U 1 1 5DC97A55
+P 1000 3900
+F 0 "R10" H 1070 3946 50  0000 L CNN
+F 1 "10KOhm" H 1070 3855 50  0000 L CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 930 3900 50  0001 C CNN
+F 3 "~" H 1000 3900 50  0001 C CNN
+	1    1000 3900
+	0    -1   -1   0   
+$EndComp
+Connection ~ 850  3900
+Wire Wire Line
+	1150 3900 1150 3600
+Wire Wire Line
+	1150 3600 1100 3600
+Connection ~ 1100 3600
+Wire Wire Line
+	850  4200 800  4200
+Wire Wire Line
+	800  4200 800  4300
+=======
 $Comp
 L Device:R R10
 U 1 1 5DC450EB
@@ -926,4 +1004,5 @@ Wire Wire Line
 	5200 1400 5200 2000
 Wire Wire Line
 	4750 2000 5200 2000
+>>>>>>> 0c1d2f93435f1603887932e1fb8b10a77362861f
 $EndSCHEMATC
