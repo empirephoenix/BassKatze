@@ -675,26 +675,9 @@ F 3 "~" H 1950 2600 50  0001 C CNN
 	1    1950 2600
 	-1   0    0    1   
 $EndComp
-$Comp
-L Device:D Charge_Powerup1
-U 1 1 5DB1380F
-P 1950 2300
-F 0 "Charge_Powerup1" H 1950 2084 50  0000 C CNN
-F 1 "D" H 1950 2175 50  0000 C CNN
-F 2 "Diode_SMD:D_1206_3216Metric" H 1950 2300 50  0001 C CNN
-F 3 "~" H 1950 2300 50  0001 C CNN
-	1    1950 2300
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	2100 2600 2100 2300
 Connection ~ 2100 2600
 Wire Wire Line
 	1650 2600 1800 2600
-Text GLabel 1800 2250 1    50   Input ~ 0
-5V_IN
-Wire Wire Line
-	1800 2250 1800 2300
 $Comp
 L Connector:Conn_01x02_Male BAT1
 U 1 1 5DADAC8C
