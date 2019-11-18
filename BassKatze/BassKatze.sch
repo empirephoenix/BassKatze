@@ -363,7 +363,7 @@ F 3 "~" H 1650 3700 50  0001 C CNN
 	1    1650 3700
 	1    0    0    -1  
 $EndComp
-Text GLabel 800  4300 3    50   Input ~ 0
+Text GLabel 800  4600 3    50   Input ~ 0
 PWR_HOLD
 Text GLabel 4800 3300 2    50   Input ~ 0
 PWR_HOLD
@@ -724,7 +724,6 @@ NoConn ~ 3550 1400
 NoConn ~ 3550 1300
 NoConn ~ 3550 1100
 NoConn ~ 1150 7050
-NoConn ~ 1200 1150
 Text GLabel 5650 1950 2    50   Input ~ 0
 PWR
 Wire Wire Line
@@ -985,4 +984,35 @@ Wire Wire Line
 	5200 1400 5200 2000
 Wire Wire Line
 	4750 2000 5200 2000
+$Comp
+L Device:D D18
+U 1 1 5DD2FE3A
+P 800 4450
+F 0 "D18" V 754 4529 50  0000 L CNN
+F 1 "D" V 845 4529 50  0000 L CNN
+F 2 "Diode_SMD:D_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 800 4450 50  0001 C CNN
+F 3 "~" H 800 4450 50  0001 C CNN
+	1    800  4450
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:D D19
+U 1 1 5DD309CE
+P 950 4300
+F 0 "D19" H 950 4516 50  0000 C CNN
+F 1 "D" H 950 4425 50  0000 C CNN
+F 2 "Diode_SMD:D_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 950 4300 50  0001 C CNN
+F 3 "~" H 950 4300 50  0001 C CNN
+	1    950  4300
+	1    0    0    -1  
+$EndComp
+Connection ~ 800  4300
+Text GLabel 1150 4300 2    50   Input ~ 0
+5V_Flash
+Wire Wire Line
+	1100 4300 1150 4300
+Text GLabel 1150 1150 0    50   Input ~ 0
+5V_Flash
+Wire Wire Line
+	1150 1150 1200 1150
 $EndSCHEMATC
