@@ -203,7 +203,7 @@ Text GLabel 5600 2650 2    50   Input ~ 0
 EQ_Band
 Text GLabel 5600 2750 2    50   Input ~ 0
 EQ_Reset
-Text GLabel 4800 3000 2    50   Input ~ 0
+Text GLabel 5650 3000 2    50   Input ~ 0
 LED1
 Wire Wire Line
 	4750 3000 4800 3000
@@ -1015,4 +1015,17 @@ Text GLabel 1150 1150 0    50   Input ~ 0
 5V_Flash
 Wire Wire Line
 	1150 1150 1200 1150
+$Comp
+L Device:R R14
+U 1 1 5DD5D3A9
+P 4950 3000
+F 0 "R14" V 4743 3000 50  0000 C CNN
+F 1 "470Ohm" V 4834 3000 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 4880 3000 50  0001 C CNN
+F 3 "~" H 4950 3000 50  0001 C CNN
+	1    4950 3000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5650 3000 5100 3000
 $EndSCHEMATC
