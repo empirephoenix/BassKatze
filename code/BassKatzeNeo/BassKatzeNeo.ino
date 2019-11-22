@@ -72,16 +72,15 @@ void loop(){
 
   digitalWrite(EQ_RESET_OUT, HIGH);
   digitalWrite(EQ_RESET_OUT, LOW);
-  for (int i=0;i<7;i++){
+  for (int i=0;i<2;i++){
     digitalWrite(EQ_BAND_OUT, LOW);
-    delay(5);
+    delay(4);
     spectrumValue[i]=analogRead(RAW_SPECTRUM_AIN);
     spectrumValue[i]=constrain(spectrumValue[i], filter, 1023);
     spectrumValue[i]=map(spectrumValue[i], filter,1023,0,255);
     digitalWrite(EQ_BAND_OUT, HIGH);
   }
 
-  rand3 = 25;
 //
 //  if(digitalRead(CHRG_IN)){
 //    rand1 = 255;
