@@ -1,6 +1,4 @@
-#include <FastLED.h>
-
-
+#include <Adafruit_NeoPixel.h>
 
 
 #define RAW_SPECTRUM_AIN A0 // PC0
@@ -19,16 +17,24 @@
 int rand1 =  0;
 int rand2 =  200;
 int rand3 =  0;
+int rand4 =  0;
 
 
 // How many leds in your strip?
-#define NUM_LEDS 16
-#define DATA_PIN LED1_OUT
+#define LED_COUNT 2
+#define LED_PIN LED1_OUT
+#define BRIGHTNESS  255
 
-// Define the array of leds
-CRGB leds[NUM_LEDS];
-#define BRIGHTNESS        16
-
+// Declare the array of leds
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRBW + NEO_KHZ800);
+// Argument 1 = Number of pixels in NeoPixel strip
+// Argument 2 = Arduino pin number (most are valid)
+// Argument 3 = Pixel type flags, add together as needed:
+//   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
+//   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
+//   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
+//   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
+//   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
 
 int spectrumValue[7];
 int filter=80;
@@ -47,16 +53,18 @@ void setup() {
   pinMode(CHRG_IN, INPUT_PULLUP);
   pinMode(STDBY_IN, INPUT_PULLUP);
   
-  LEDS.setBrightness(BRIGHTNESS);
-  
   digitalWrite(EQ_RESET_OUT, LOW);
   digitalWrite(EQ_BAND_OUT, HIGH);
-
   digitalWrite(PWR_HOLD_OUT, HIGH);
   
 //  digitalWrite(PWR_HOLD_OUT, LOW);
 
-  FastLED.addLeds<WS2812, DATA_PIN, GRB>(leds, NUM_LEDS);
+  strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
+  strip.setBrightness(BRIGHTNESS); // Set BRIGHTNESS (max = 255)
+  for(int i=0; i<strip.numPixels(); i++) { // For each pixel in strip...
+    strip.setPixelColor(i, 0);         
+  }
+  strip.show();            
 }
 
 // the loop function runs over and over again forever
@@ -66,7 +74,7 @@ void loop(){
   digitalWrite(EQ_RESET_OUT, LOW);
   for (int i=0;i<7;i++){
     digitalWrite(EQ_BAND_OUT, LOW);
-    delay(10);
+    delay(5);
     spectrumValue[i]=analogRead(RAW_SPECTRUM_AIN);
     spectrumValue[i]=constrain(spectrumValue[i], filter, 1023);
     spectrumValue[i]=map(spectrumValue[i], filter,1023,0,255);
@@ -74,37 +82,37 @@ void loop(){
   }
 
   rand3 = 25;
+//
+//  if(digitalRead(CHRG_IN)){
+//    rand1 = 255;
+//  }else{
+//    rand1 = 0;
+//}
+//
+//  if(digitalRead(STDBY_IN)){
+//    rand2 = 255;
+//  }else{
+//    rand2 = 0;
+//}
 
-  if(digitalRead(CHRG_IN)){
-    rand1 = 255;
-  }else{
-    rand1 = 0;
-}
 
-  if(digitalRead(STDBY_IN)){
-    rand2 = 255;
-  }else{
-    rand2 = 0;
-}
-
-
-  for (int blinky=0;blinky<16;blinky++) {
-    leds[blinky] = CRGB(rand1, rand2, rand3);     
+  for(int i=0; i<strip.numPixels(); i++) { // For each pixel in strip...
+    strip.setPixelColor(i, rand1, rand2, rand3, rand4); 
   }
 
-  LEDS.setBrightness(16);
-//  LEDS.setBrightness(spectrumValue[0]);
+  strip.setBrightness(spectrumValue[0]); // Set BRIGHTNESS (max = 255)
     
   if (spectrumValue[0]<50) {
     rand1 = random(255);
     rand2 = random(255);
     rand3 = random(255);
+    rand4 = random(255);
   }
 
   
      
-    FastLED.show();
-    //delay(10000);
+  strip.show();            
+  delay(0);
     //digitalWrite(PWR_HOLD_OUT, LOW);
 
 }
