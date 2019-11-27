@@ -1,5 +1,5 @@
 #include <Adafruit_NeoPixel.h>
-
+#include "RunningMedian.h"
 
 #define RAW_SPECTRUM_AIN A0 // PC0
 #define GAIN_SELECT_OUT A1 // PC1
@@ -13,37 +13,27 @@
 #define CHRG_IN 6 // PD6
 #define STDBY_IN 7 // PD7
 
-
-int rand1 =  0;
-int rand2 =  200;
-int rand3 =  0;
-int rand4 =  0;
-
-
-// How many leds in your strip?
 #define LED_COUNT 2
 #define LED_PIN LED1_OUT
 #define BRIGHTNESS  255
 
-// Declare the array of leds
+int mode = 0;
+
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRBW + NEO_KHZ800);
-// Argument 1 = Number of pixels in NeoPixel strip
-// Argument 2 = Arduino pin number (most are valid)
-// Argument 3 = Pixel type flags, add together as needed:
-//   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
-//   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
-//   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
-//   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-//   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
+RunningMedian median0 = RunningMedian(64);
+RunningMedian median1 = RunningMedian(64);
+RunningMedian median2 = RunningMedian(64);
+RunningMedian median3 = RunningMedian(64);
+RunningMedian median4 = RunningMedian(64);
+RunningMedian median5 = RunningMedian(64);
+RunningMedian median6 = RunningMedian(64);
 
 int spectrumValue[7];
-int filter=80;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
   analogReference(INTERNAL);
   randomSeed(analogRead(0));
-  
   Serial.begin(9600);
   pinMode(RAW_SPECTRUM_AIN, INPUT);
   pinMode(EQ_BAND_OUT, OUTPUT);
@@ -69,18 +59,32 @@ void setup() {
 
 // the loop function runs over and over again forever
 void loop(){
-
+  delay(2);
   digitalWrite(EQ_RESET_OUT, HIGH);
+  digitalWrite(EQ_BAND_OUT, HIGH);
+  delayMicroseconds(18);
+  digitalWrite(EQ_BAND_OUT, LOW);
+  delayMicroseconds(72);
+  digitalWrite(EQ_BAND_OUT, HIGH);
   digitalWrite(EQ_RESET_OUT, LOW);
-  for (int i=0;i<2;i++){
-    digitalWrite(EQ_BAND_OUT, LOW);
-    delay(4);
+  delayMicroseconds(18);
+  digitalWrite(EQ_BAND_OUT, LOW);
+  for (int i=0;i<7;i++){
+    delayMicroseconds(36);
     spectrumValue[i]=analogRead(RAW_SPECTRUM_AIN);
-    spectrumValue[i]=constrain(spectrumValue[i], filter, 1023);
-    spectrumValue[i]=map(spectrumValue[i], filter,1023,0,255);
+    delayMicroseconds(18);
     digitalWrite(EQ_BAND_OUT, HIGH);
+    delayMicroseconds(18);
+    digitalWrite(EQ_BAND_OUT, LOW);
   }
 
+  median0.add(spectrumValue[0]);
+  median1.add(spectrumValue[1]);
+  median2.add(spectrumValue[2]);
+  median3.add(spectrumValue[3]);
+  median4.add(spectrumValue[4]);
+  median5.add(spectrumValue[5]);
+  median6.add(spectrumValue[6]);
 //
 //  if(digitalRead(CHRG_IN)){
 //    rand1 = 255;
@@ -93,25 +97,60 @@ void loop(){
 //  }else{
 //    rand2 = 0;
 //}
-
-
-  for(int i=0; i<strip.numPixels(); i++) { // For each pixel in strip...
-    strip.setPixelColor(i, rand1, rand2, rand3, rand4); 
-  }
-
-  strip.setBrightness(spectrumValue[0]); // Set BRIGHTNESS (max = 255)
-    
-  if (spectrumValue[0]<50) {
-    rand1 = random(255);
-    rand2 = random(255);
-    rand3 = random(255);
-    rand4 = random(255);
-  }
-
-  
-     
+//  if(mode==0){
+    randomFlare();
+//  }
   strip.show();            
   delay(0);
     //digitalWrite(PWR_HOLD_OUT, LOW);
 
+}
+
+
+int hue;
+int bassAvg = 0;
+void randomFlare(){
+    int bass = spectrumValue[0];
+    int max = getIndexOfMaximumValue();
+    if(max == 0){
+      hue = 0;
+    }
+    if(max == 1){
+      hue = 0;
+    }
+    if(max == 2){
+      hue = 15000;
+    }
+    if(max == 3){
+      //hue = 15000;
+    }
+    if(max == 4){
+       //hue = 30000;
+    }
+    if(max == 5){
+      //hue = 30000;
+    }
+    if(max == 6){
+      //hue = 50000;
+    }
+    if (bass < 1) {
+      strip.setBrightness(0);
+    } else {
+      uint32_t rgbcolor = strip.Color(median2.getHighest()/4, median3.getHighest()/4, median6.getHighest()/4, median0.getMedian()/8);
+      //uint32_t rgbcolor = strip.ColorHSV(hue);
+      strip.fill(rgbcolor);
+      strip.setBrightness(map(median0.getMedian(),0,800,20,255));
+    }
+}
+
+int getIndexOfMaximumValue(){
+ int maxIndex = 0;
+ int max = spectrumValue[maxIndex];
+ for (int i=1; i<7; i++){
+   if (max<spectrumValue[i]){
+     max = spectrumValue[i];
+     maxIndex = i;
+   }
+ }
+ return maxIndex;
 }
