@@ -1028,4 +1028,18 @@ F 3 "~" H 4950 3000 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5650 3000 5100 3000
+$Comp
+L Device:R R15
+U 1 1 5DEED760
+P 1800 2450
+F 0 "R15" H 1870 2496 50  0000 L CNN
+F 1 "10k" H 1870 2405 50  0000 L CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 1730 2450 50  0001 C CNN
+F 3 "~" H 1800 2450 50  0001 C CNN
+	1    1800 2450
+	1    0    0    -1  
+$EndComp
+Connection ~ 1800 2600
+Text GLabel 1800 2300 1    50   Input ~ 0
+GND
 $EndSCHEMATC
