@@ -22,6 +22,12 @@
 #define BATT_MIN 527  // 3,4V/6(Spannungsteiler)/1.1(interne Referenz)*1024(10Bit ADC)
 #define BATT_WARN 543  // 3,5V/6(Spannungsteiler)/1.1(interne Referenz)*1024(10Bit ADC)
 
+#define DENOISE_MIN 80
+
+#define BRIGHTNESS_CHANGE_SPEED 250
+#define BRIGHTNESS_STEP 64
+#define BRIGHTNESS_TRIGGER_DELAY 2000
+
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRBW + NEO_KHZ800);
 
@@ -29,11 +35,24 @@ volatile int spectrumValue[7];
 volatile int currentBatteryLevel = BATT_MAX;
 bool chargestate = false;
 bool standbystate = false;
-int brightness = 16;
+
+int brightness = BRIGHTNESS_STEP;
+bool brightnessInc = true;
+bool brightnessChange = false;
+unsigned long nextBrightnessChange = 0;
+
 int mode = 0;
 bool currentButton;
 bool warnDetected = false;
 
+//beatdetect variables
+const int frames = 50;
+int frame = 0;
+int bass[frames];
+int snare[frames];
+int hat[frames];
+
+unsigned long buttonPressStart;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
@@ -133,8 +152,13 @@ void loop(){
         flashLight();
       }else if(mode == 2){
         randomFlare();
+      }else if(mode == 3){
+        beatDetect();
       }else {
         digitalWrite(PWR_HOLD_OUT, LOW);
+        //return to initial mode, if isp is connected and shutdown is not possible
+        delay(100);
+        mode=0;
       }
     }
 
@@ -143,7 +167,13 @@ void loop(){
 
 void checkButton(){
   bool cur = digitalRead(BUTTON_IN);
-  if(!cur && currentButton){
+  brightnessChange = millis()-buttonPressStart > BRIGHTNESS_TRIGGER_DELAY;
+  if(cur && !currentButton){
+    buttonPressStart = millis();
+  }
+  if(!cur && currentButton && !brightnessChange){
+    pinMode(GAIN_SELECT_OUT, INPUT);
+    pinMode(ATTACK_SELECT_OUT, INPUT);
     mode++;
   }
   currentButton = cur;
@@ -151,8 +181,7 @@ void checkButton(){
 
 void flashLight(){
   if (chargestate) {
-    uint32_t rgbcolor = strip.Color(255,0,0,0);
-    strip.fill(rgbcolor);
+    chargeIndicator();
   }
   else if (standbystate) {
     uint32_t rgbcolor = strip.Color(0,0,255,0);
@@ -170,6 +199,24 @@ void warnMode() {
 }
 
 void buttonIndicator(){
+  if(brightnessChange){
+    if(nextBrightnessChange < millis()){
+      nextBrightnessChange = millis() + BRIGHTNESS_CHANGE_SPEED;
+      if(brightnessInc){
+        brightness += BRIGHTNESS_STEP;
+        if(brightness >= 255){
+          brightness = 255;
+          brightnessInc = false;
+        }
+      }else {
+         brightness -= BRIGHTNESS_STEP;
+         if(brightness <= BRIGHTNESS_STEP){
+            brightness = BRIGHTNESS_STEP;
+            brightnessInc = true;
+        }
+      }
+    }
+  }
   uint32_t rgbcolor = strip.Color(255,255,255,255);
   strip.fill(rgbcolor);
 }
@@ -181,20 +228,64 @@ void parseChargeState(){
   standbystate = false;
   
   if (!(charge && standby)) {
-    if (charge) {
+    if (!charge) {
       chargestate=true;
      
     }  
-    if (standby) {
+    if (!standby) {
       standbystate=true;
      
     }
   }
 }
 
+int find_average(int ary[], int siz){
+  double sum = 0;
+  for (int i = 0; i < siz; i++){
+    sum += ary[i];
+  }
+  return sum/siz;
+}
+
+void beatDetect(){
+  digitalWrite(ATTACK_SELECT_OUT, HIGH);
+  
+  int new_bass = denoise(spectrumValue[0]) + denoise(spectrumValue[1]);
+  int new_snare = denoise(spectrumValue[3]);
+  int new_hat = denoise(spectrumValue[6]) + denoise(spectrumValue[5]);
+
+  int r = 0;
+  int g = 0;
+  int b = 0;
+
+  if ((new_snare/find_average(snare, frames)) > 1){
+    r = 255;
+  }
+  if ((new_hat/find_average(hat, frames)) > 1){
+    g = 255;
+  }
+  if ((new_bass/find_average(bass, frames)) > 1){
+    b = 255;
+  }
+  hat[frame] = new_hat;
+  snare[frame] = new_snare;
+  bass[frame] = new_bass;
+  frame++;
+  if (frame >= frames) frame=0;
+
+  uint32_t rgbcolor = strip.Color(r,g,b,0);
+  strip.fill(rgbcolor);
+}
+
+int denoise(int value){
+  if(value < DENOISE_MIN){
+    value = DENOISE_MIN;
+  }
+  return map(value,50,1024,0,1024);
+}
 
 void randomFlare(){
-  uint32_t rgbcolor = strip.Color(0,spectrumValue[0]/4,spectrumValue[1],0);
+  uint32_t rgbcolor = strip.Color(0,denoise(spectrumValue[0])/4,denoise(spectrumValue[1]),0);
   strip.fill(rgbcolor);
 }
 
