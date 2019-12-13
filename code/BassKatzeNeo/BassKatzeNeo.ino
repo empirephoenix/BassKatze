@@ -216,14 +216,14 @@ void checkButton()
 
 void flashLight()
 {
-  if (chargestate)
-  {
-    chargeIndicator();
-  }
-  else if (standbystate)
+  if (standbystate)
   {
     uint32_t rgbcolor = strip.Color(0, 0, 255, 0);
     strip.fill(rgbcolor);
+  }
+  else if (chargestate)
+  {
+    chargeIndicator();
   }
   else
   {
@@ -243,13 +243,15 @@ void buttonIndicator()
 {
   if (brightnessChange)
   {
+    uint32_t rgbcolor = strip.Color(255, 255, 255, 255);
+    strip.fill(rgbcolor);
     if (nextBrightnessChange < millis())
     {
       nextBrightnessChange = millis() + BRIGHTNESS_CHANGE_SPEED;
       if (brightnessInc)
       {
         brightness += BRIGHTNESS_STEP;
-        if (brightness >= 255)
+        if (brightness+BRIGHTNESS_STEP >= 255)
         {
           brightness = 255;
           brightnessInc = false;
@@ -265,19 +267,8 @@ void buttonIndicator()
         }
       }
     }
-  }
-  int batLeveL = map(currentBatteryLevel, BATT_MIN, BATT_MAX, 1, 16);
-  uint32_t rgbcolor = strip.Color(255, 255, 255, 255);
-  for (int i = 0; i < LED_COUNT; i++)
-  {
-    if (i < batLeveL)
-    {
-      strip.setPixelColor(i, rgbcolor);
-    }
-    else
-    {
-      strip.setPixelColor(i, 0, 0, 0, 0);
-    }
+  }else {
+    chargeIndicator();
   }
 }
 
@@ -303,7 +294,6 @@ void parseChargeState()
 
 void beatDetect()
 {
-  digitalWrite(ATTACK_SELECT_OUT, HIGH);
   if (nextBeatDetect > millis())
   {
     return;
@@ -356,8 +346,10 @@ uint16_t denoise(uint16_t value)
 
 void randomFlare()
 {
-  uint32_t rgbcolor = strip.Color(denoise(spectrumValue[2]) / 4, denoise(spectrumValue[0]) / 4, denoise(spectrumValue[1]), 0);
-  strip.fill(rgbcolor);
+  color_t rgbcolor;
+  rgbcolor.rgbw = strip.Color(denoise(spectrumValue[2]) / 4, denoise(spectrumValue[0]) / 4, denoise(spectrumValue[1]), 0);
+  rgbcolor = modifyWhite(rgbcolor);
+  strip.fill(rgbcolor.rgbw);
 }
 
 
@@ -395,6 +387,7 @@ void chargeIndicator()
 {
   uint8_t batLeveL = map(currentBatteryLevel, BATT_MIN, BATT_MAX, 20, 2);
   bool on = ((millis() / 100) % batLeveL) == 0;
-  uint32_t rgbcolor = strip.Color(0, on ? 255 : 0, 0, 0);
-  strip.fill(rgbcolor);
+  color_t rgbcolor;
+  rgbcolor.rgbw = strip.Color(0, on ? 255 : 0, 0, 0);
+  strip.fill(rgbcolor.rgbw);
 }
