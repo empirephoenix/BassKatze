@@ -1,6 +1,6 @@
+#include <MSGEQ7.h>
 #include <Adafruit_NeoPixel.h>
 #include "RunningMedian.h"
-#include "timer-api.h"
 
 #define RAW_SPECTRUM_AIN A0  // PC0
 #define GAIN_SELECT_OUT A1   // PC1
@@ -9,6 +9,7 @@
 #define EQ_BAND_OUT A4       // PC4
 #define EQ_RESET_OUT A5      // PC5
 #define LED1_OUT 2           // PD2
+#define MSGEQ7_INTERVAL ReadsPerSecond(50)
 
 #define BUTTON_IN 4    // PD4
 #define PWR_HOLD_OUT 5 // PD5
@@ -22,15 +23,15 @@
 #define BATT_MIN 527  // 3,4V/6(Spannungsteiler)/1.1(interne Referenz)*1024(10Bit ADC)
 #define BATT_WARN 543 // 3,5V/6(Spannungsteiler)/1.1(interne Referenz)*1024(10Bit ADC)
 
-#define DENOISE_MIN 80
+#define DENOISE_MIN 19
 
 #define BRIGHTNESS_CHANGE_SPEED 250
 #define BRIGHTNESS_STEP 32
 #define BRIGHTNESS_TRIGGER_DELAY 2000
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRBW + NEO_KHZ800);
+  CMSGEQ7<0, EQ_RESET_OUT, EQ_BAND_OUT, RAW_SPECTRUM_AIN> eq;
 
-volatile int spectrumValue[7];
 volatile int currentBatteryLevel = BATT_MAX;
 bool chargestate = false;
 bool standbystate = false;
@@ -75,9 +76,7 @@ void setup()
   analogReference(INTERNAL);
   randomSeed(analogRead(0));
   Serial.begin(9600);
-  pinMode(RAW_SPECTRUM_AIN, INPUT);
-  pinMode(EQ_BAND_OUT, OUTPUT);
-  pinMode(EQ_RESET_OUT, OUTPUT);
+  eq.begin();
   pinMode(LED1_OUT, OUTPUT);
   pinMode(PWR_HOLD_OUT, OUTPUT);
   pinMode(CHRG_IN, INPUT_PULLUP);
@@ -97,40 +96,14 @@ void setup()
     strip.setPixelColor(i, 0);
   }
   strip.show();
-  timer_init_ISR_50Hz(TIMER_DEFAULT);
-}
 
-void timer_handle_interrupts(int timer)
-{
-  if (timer != TIMER_DEFAULT)
-  {
-    return;
-  }
-  currentBatteryLevel = analogRead(PWR_IN) * 0.1 + currentBatteryLevel * 0.9;
-  digitalWrite(EQ_RESET_OUT, HIGH);
-  digitalWrite(EQ_BAND_OUT, HIGH);
-  delayMicroseconds(18);
-  digitalWrite(EQ_BAND_OUT, LOW);
-  delayMicroseconds(72);
-  digitalWrite(EQ_BAND_OUT, HIGH);
-  digitalWrite(EQ_RESET_OUT, LOW);
-  delayMicroseconds(18);
-  digitalWrite(EQ_BAND_OUT, LOW);
-  for (int i = 0; i < 7; i++)
-  {
-    delayMicroseconds(36);
-    spectrumValue[i] = analogRead(RAW_SPECTRUM_AIN);
-    delayMicroseconds(18);
-    digitalWrite(EQ_BAND_OUT, HIGH);
-    delayMicroseconds(18);
-    digitalWrite(EQ_BAND_OUT, LOW);
-  }
 }
 
 // the loop function runs over and over again forever
 void loop()
 {
-
+  bool newReading = eq.read(MSGEQ7_INTERVAL);
+  currentBatteryLevel = analogRead(PWR_IN) * 0.1 + currentBatteryLevel * 0.9;
   if (currentBatteryLevel < BATT_MIN)
   {
     digitalWrite(PWR_HOLD_OUT, LOW);
@@ -167,7 +140,7 @@ void loop()
   {
     buttonIndicator();
   }
-  else
+  else if(newReading)
   {
     if (mode == 1)
     {
@@ -207,6 +180,11 @@ void checkButton()
   }
   if (!cur && currentButton && !brightnessChange)
   {
+    pinMode(GAIN_SELECT_OUT, INPUT);
+    pinMode(ATTACK_SELECT_OUT, INPUT);
+    mode++;
+  }
+  if(mode == 0 && !cur){
     pinMode(GAIN_SELECT_OUT, INPUT);
     pinMode(ATTACK_SELECT_OUT, INPUT);
     mode++;
@@ -265,19 +243,8 @@ void buttonIndicator()
         }
       }
     }
-  }
-  int batLeveL = map(currentBatteryLevel, BATT_MIN, BATT_MAX, 1, 16);
-  uint32_t rgbcolor = strip.Color(255, 255, 255, 255);
-  for (int i = 0; i < LED_COUNT; i++)
-  {
-    if (i < batLeveL)
-    {
-      strip.setPixelColor(i, rgbcolor);
-    }
-    else
-    {
-      strip.setPixelColor(i, 0, 0, 0, 0);
-    }
+  } else {
+    chargeIndicator();
   }
 }
 
@@ -317,9 +284,9 @@ void beatDetect()
     nextBeatDetect = nextBeatDetect + 10;
   }
 
-  float new_bass = denoise(spectrumValue[0]) + denoise(spectrumValue[1]);
-  float new_snare = denoise(spectrumValue[3]);
-  float new_hat = denoise(spectrumValue[6]) + denoise(spectrumValue[5]);
+  float new_bass = denoise(eq.get(0)) + denoise(eq.get(1));
+  float new_snare = denoise(eq.get(3));
+  float new_hat = denoise(eq.get(6)) + denoise(eq.get(5));
 
   uint8_t r = 0;
   uint8_t g = 0;
@@ -327,15 +294,15 @@ void beatDetect()
 
   if ((new_snare / snareAvg) > 1)
   {
-    r = new_snare/4;
+    r = new_snare/2;
   }
   if ((new_hat / hatAvg) > 1)
   {
-    g = new_hat/2;
+    g = new_hat;
   }
   if ((new_bass / bassAvg) > 1)
   {
-    b = new_bass/4;
+    b = new_bass/2;
   }
   hatAvg = hatAvg * frame + new_hat * (1 - frame);
   bassAvg = bassAvg * frame + new_bass * (1 - frame);
@@ -356,7 +323,7 @@ uint16_t denoise(uint16_t value)
 
 void randomFlare()
 {
-  uint32_t rgbcolor = strip.Color(denoise(spectrumValue[2]) / 4, denoise(spectrumValue[0]) / 4, denoise(spectrumValue[1]), 0);
+  uint32_t rgbcolor = strip.Color(denoise(eq.get(2)), denoise(eq.get(0)), denoise(eq.get(1)), 0);
   strip.fill(rgbcolor);
 }
 
@@ -367,7 +334,7 @@ void hueFlare(){
   uint8_t bands = 2;
   uint16_t power = 0;
   for(uint8_t i = 0;i<bands;i++){
-    power += denoise(spectrumValue[i]);
+    power += denoise(eq.get(i));
   }
   power = power / bands;
 
