@@ -36,7 +36,7 @@ volatile int currentBatteryLevel = BATT_MAX;
 bool chargestate = false;
 bool standbystate = false;
 
-uint8_t brightness = BRIGHTNESS_STEP;
+int16_t brightness = BRIGHTNESS_STEP;
 bool brightnessInc = true;
 bool brightnessChange = false;
 uint32_t nextBrightnessChange = 0;
