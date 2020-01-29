@@ -12,16 +12,15 @@
 #define MSGEQ7_INTERVAL ReadsPerSecond(50)
 
 #define BUTTON_IN 4    // PD4
-#define PWR_HOLD_OUT 5 // PD5
 #define CHRG_IN 6      // PD6
 #define STDBY_IN 7     // PD7
 
 #define LED_COUNT 16
 #define LED_PIN LED1_OUT
 
-#define BATT_MAX 659  // 4,25V/6(Spannungsteiler)/1.1(interne Referenz)*1024(10Bit ADC)
-#define BATT_MIN 527  // 3,4V/6(Spannungsteiler)/1.1(interne Referenz)*1024(10Bit ADC)
-#define BATT_WARN 543 // 3,5V/6(Spannungsteiler)/1.1(interne Referenz)*1024(10Bit ADC)
+#define BATT_MAX 870  // 4,25V/5.0(interne Referenz)*1024(10Bit ADC)
+#define BATT_MIN 696  // 3,4V/5.0(interne Referenz)*1024(10Bit ADC)
+#define BATT_WARN 717 // 3,5V/5.0(interne Referenz)*1024(10Bit ADC)
 
 #define DENOISE_MIN 19
 
@@ -73,12 +72,10 @@ union color_t {
 // the setup function runs once when you press reset or power the board
 void setup()
 {
-  analogReference(INTERNAL);
   randomSeed(analogRead(0));
   Serial.begin(9600);
   eq.begin();
   pinMode(LED1_OUT, OUTPUT);
-  pinMode(PWR_HOLD_OUT, OUTPUT);
   pinMode(CHRG_IN, INPUT_PULLUP);
   pinMode(STDBY_IN, INPUT_PULLUP);
   pinMode(BUTTON_IN, INPUT);
@@ -87,7 +84,6 @@ void setup()
 
   digitalWrite(EQ_RESET_OUT, LOW);
   digitalWrite(EQ_BAND_OUT, HIGH);
-  digitalWrite(PWR_HOLD_OUT, HIGH);
 
   strip.begin();                   // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.setBrightness(brightness); // Set BRIGHTNESS (max = 255)
@@ -106,8 +102,8 @@ void loop()
   currentBatteryLevel = analogRead(PWR_IN) * 0.1 + currentBatteryLevel * 0.9;
   if (currentBatteryLevel < BATT_MIN)
   {
-    digitalWrite(PWR_HOLD_OUT, LOW);
-    return;
+    mode = 0;
+    //powersave here?
   }
 
   parseChargeState();
@@ -122,10 +118,6 @@ void loop()
     }
     warnMode();
     strip.show();
-    if (currentButton)
-    {
-      digitalWrite(PWR_HOLD_OUT, LOW);
-    }
     return;
   }
 
@@ -160,7 +152,6 @@ void loop()
     }
     else
     {
-      digitalWrite(PWR_HOLD_OUT, LOW);
       //return to initial mode, if isp is connected and shutdown is not possible
       delay(100);
       mode = 0;
