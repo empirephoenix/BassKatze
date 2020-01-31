@@ -56,7 +56,7 @@ uint32_t nextBeatDetect;
 
 uint16_t hue = 0;
 
-typedef struct rawcolor_t
+struct rawcolor_t
 {
   uint8_t r;
   uint8_t g;
@@ -91,7 +91,7 @@ void setup()
 
   strip.begin();                   // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.setBrightness(brightness); // Set BRIGHTNESS (max = 255)
-  for (int i = 0; i < strip.numPixels(); i++)
+  for (uint16_t i = 0; i < strip.numPixels(); i++)
   { // For each pixel in strip...
     strip.setPixelColor(i, 0);
   }
