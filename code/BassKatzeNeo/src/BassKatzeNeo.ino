@@ -18,9 +18,9 @@
 #define LED_COUNT 16
 #define LED_PIN LED1_OUT
 
-#define BATT_MAX 870  // 4,25V/5.0(interne Referenz)*1024(10Bit ADC)
-#define BATT_MIN 696  // 3,4V/5.0(interne Referenz)*1024(10Bit ADC)
-#define BATT_WARN 717 // 3,5V/5.0(interne Referenz)*1024(10Bit ADC)
+#define BATT_MAX 870  // 4,25V/5.0(externe Referenz)*1024(10Bit ADC)
+#define BATT_MIN 696  // 3,4V/5.0(externe Referenz)*1024(10Bit ADC)
+#define BATT_WARN 717 // 3,5V/5.0(externe Referenz)*1024(10Bit ADC)
 
 #define DENOISE_MIN 19
 
