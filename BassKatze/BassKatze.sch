@@ -232,7 +232,7 @@ Text GLabel 8050 2750 3    50   Input ~ 0
 GND
 Wire Wire Line
 	8650 2600 8650 2700
-Text GLabel 4900 5850 2    50   Input ~ 0
+Text GLabel 5300 6300 2    50   Input ~ 0
 PWR
 Text GLabel 4800 3200 2    50   Input ~ 0
 Button
@@ -716,7 +716,7 @@ Wire Wire Line
 	2350 6900 3150 6900
 Wire Wire Line
 	3150 6900 3150 6800
-Text GLabel 4900 6150 2    50   Input ~ 0
+Text GLabel 4350 6150 3    50   Input ~ 0
 GND
 $Comp
 L Device:C C7
@@ -740,8 +740,6 @@ F 3 "~" H 4550 6000 50  0001 C CNN
 	1    4550 6000
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4900 5850 4550 5850
 Connection ~ 4550 5850
 Wire Wire Line
 	4550 5850 4100 5850
@@ -750,9 +748,6 @@ Wire Wire Line
 Wire Wire Line
 	3650 5850 3650 6150
 Connection ~ 4100 5850
-Wire Wire Line
-	4900 6150 4550 6150
-Connection ~ 4550 6150
 Wire Wire Line
 	4550 6150 4100 6150
 $Comp
@@ -950,4 +945,34 @@ Wire Wire Line
 	7400 6350 6700 6350
 Wire Wire Line
 	4800 2300 4750 2300
+$Comp
+L Device:Q_PMOS_GDS Q1
+U 1 1 5E3890D3
+P 5300 6100
+F 0 "Q1" H 5505 6054 50  0000 L CNN
+F 1 "Q_PMOS_GDS" H 5505 6145 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5500 6200 50  0001 C CNN
+F 3 "~" H 5300 6100 50  0001 C CNN
+	1    5300 6100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4550 5850 5200 5850
+Text GLabel 5800 6100 2    50   Input ~ 0
+BAT+
+Wire Wire Line
+	5200 5850 5200 5900
+Wire Wire Line
+	5300 6300 5200 6300
+$Comp
+L Device:R 10K1
+U 1 1 5E3A2A18
+P 5650 6100
+F 0 "10K1" V 5443 6100 50  0000 C CNN
+F 1 "R" V 5534 6100 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 5580 6100 50  0001 C CNN
+F 3 "~" H 5650 6100 50  0001 C CNN
+	1    5650 6100
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC
