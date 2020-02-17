@@ -1,5 +1,5 @@
 EESchema Schematic File Version 4
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -25,10 +25,10 @@ F 3 "http://mix-sig.com/images/datasheets/MSGEQ7.pdf" H 9850 1500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_02x03_Counter_Clockwise ISP1
+L Connector_Generic:Conn_02x03_Counter_Clockwise ISP_5v1
 U 1 1 5DA75700
 P 6400 5000
-F 0 "ISP1" H 6450 5317 50  0000 C CNN
+F 0 "ISP_5v1" H 6450 5317 50  0000 C CNN
 F 1 "Conn_02x03_Counter_Clockwise" H 6450 5226 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical" H 6400 5000 50  0001 C CNN
 F 3 "~" H 6400 5000 50  0001 C CNN
@@ -118,7 +118,7 @@ U 1 1 5DAAD5B2
 P 10450 4850
 F 0 "RProg1" H 10520 4896 50  0000 L CNN
 F 1 "1.2kOhm" H 10520 4805 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 10380 4850 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 10380 4850 50  0001 C CNN
 F 3 "~" H 10450 4850 50  0001 C CNN
 	1    10450 4850
 	1    0    0    -1  
@@ -230,17 +230,6 @@ F 3 "~" H 9100 1500 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R2
-U 1 1 5DB02B41
-P 8250 1900
-F 0 "R2" V 8043 1900 50  0000 C CNN
-F 1 "26KOhm" V 8134 1900 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 8180 1900 50  0001 C CNN
-F 3 "~" H 8250 1900 50  0001 C CNN
-	1    8250 1900
-	-1   0    0    1   
-$EndComp
-$Comp
 L Device:C C6
 U 1 1 5DB05B69
 P 10350 2050
@@ -274,7 +263,7 @@ U 1 1 5DB0A2DB
 P 9050 1800
 F 0 "R3" V 8843 1800 50  0000 C CNN
 F 1 "200KOhm" V 8934 1800 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 8980 1800 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 8980 1800 50  0001 C CNN
 F 3 "~" H 9050 1800 50  0001 C CNN
 	1    9050 1800
 	0    1    1    0   
@@ -666,26 +655,15 @@ $EndComp
 Wire Wire Line
 	1850 1400 2000 1400
 $Comp
-L Connector:Conn_01x02_Male BAT1
+L Connector:Conn_01x02_Male +Bat-1
 U 1 1 5DADAC8C
 P 10650 3250
-F 0 "BAT1" V 10712 3294 50  0000 L CNN
+F 0 "+Bat-1" V 10712 3294 50  0000 L CNN
 F 1 "BAT" H 10803 3294 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1210_3225Metric" H 10650 3250 50  0001 C CNN
 F 3 "~" H 10650 3250 50  0001 C CNN
 	1    10650 3250
 	-1   0    0    1   
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female Charge1
-U 1 1 5DAD3249
-P 10600 3600
-F 0 "Charge1" H 10628 3576 50  0000 L CNN
-F 1 "Charge" H 10628 3485 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1210_3225Metric" H 10600 3600 50  0001 C CNN
-F 3 "~" H 10600 3600 50  0001 C CNN
-	1    10600 3600
-	1    0    0    -1  
 $EndComp
 NoConn ~ 10650 6050
 $Comp
@@ -730,7 +708,7 @@ U 1 1 5DC36455
 P 8100 1750
 F 0 "R6" V 7893 1750 50  0000 C CNN
 F 1 "147KOhm" V 7984 1750 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 8030 1750 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 8030 1750 50  0001 C CNN
 F 3 "~" H 8100 1750 50  0001 C CNN
 	1    8100 1750
 	0    1    1    0   
@@ -816,7 +794,7 @@ U 1 1 5DB18D48
 P 5750 1700
 F 0 "R8" V 5543 1700 50  0000 C CNN
 F 1 "5KOhm" V 5634 1700 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 5680 1700 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 5680 1700 50  0001 C CNN
 F 3 "~" H 5750 1700 50  0001 C CNN
 	1    5750 1700
 	0    1    1    0   
@@ -827,7 +805,7 @@ U 1 1 5DB193BE
 P 5450 1700
 F 0 "R7" V 5243 1700 50  0000 C CNN
 F 1 "1KOhm" V 5334 1700 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 5380 1700 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 5380 1700 50  0001 C CNN
 F 3 "~" H 5450 1700 50  0001 C CNN
 	1    5450 1700
 	0    1    1    0   
@@ -860,7 +838,7 @@ U 1 1 5DC450EB
 P 5550 1250
 F 0 "R10" V 5343 1250 50  0000 C CNN
 F 1 "5KOhm" V 5434 1250 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 5480 1250 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 5480 1250 50  0001 C CNN
 F 3 "~" H 5550 1250 50  0001 C CNN
 	1    5550 1250
 	0    1    1    0   
@@ -871,7 +849,7 @@ U 1 1 5DC450F1
 P 5250 1250
 F 0 "R9" V 5043 1250 50  0000 C CNN
 F 1 "1KOhm" V 5134 1250 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 5180 1250 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 5180 1250 50  0001 C CNN
 F 3 "~" H 5250 1250 50  0001 C CNN
 	1    5250 1250
 	0    1    1    0   
@@ -928,7 +906,7 @@ U 1 1 5DD5D3A9
 P 4950 3000
 F 0 "R14" V 4743 3000 50  0000 C CNN
 F 1 "470Ohm" V 4834 3000 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 4880 3000 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 4880 3000 50  0000 C CNN
 F 3 "~" H 4950 3000 50  0001 C CNN
 	1    4950 3000
 	0    1    1    0   
@@ -941,7 +919,7 @@ U 1 1 5DEED760
 P 2000 1250
 F 0 "R15" H 2070 1296 50  0000 L CNN
 F 1 "10k" H 2070 1205 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 1930 1250 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 1930 1250 50  0001 C CNN
 F 3 "~" H 2000 1250 50  0001 C CNN
 	1    2000 1250
 	1    0    0    -1  
@@ -950,50 +928,6 @@ Connection ~ 2000 1400
 Text GLabel 2000 1100 1    50   Input ~ 0
 GND
 Connection ~ 9950 4950
-$Comp
-L Transistor_FET:BSS138 Q6
-U 1 1 5E4C9ACB
-P 4900 5200
-F 0 "Q6" V 5150 5200 50  0000 C CNN
-F 1 "BSS138" V 5241 5200 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 5100 5125 50  0001 L CIN
-F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 4900 5200 50  0001 L CNN
-	1    4900 5200
-	0    1    1    0   
-$EndComp
-$Comp
-L Transistor_FET:BSS138 Q3
-U 1 1 5E4D8673
-P 1350 5200
-F 0 "Q3" V 1600 5200 50  0000 C CNN
-F 1 "BSS138" V 1691 5200 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 1550 5125 50  0001 L CIN
-F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 1350 5200 50  0001 L CNN
-	1    1350 5200
-	0    1    1    0   
-$EndComp
-$Comp
-L Transistor_FET:BSS138 Q5
-U 1 1 5E4DFB79
-P 3750 5200
-F 0 "Q5" V 4000 5200 50  0000 C CNN
-F 1 "BSS138" V 4091 5200 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 3950 5125 50  0001 L CIN
-F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 3750 5200 50  0001 L CNN
-	1    3750 5200
-	0    1    1    0   
-$EndComp
-$Comp
-L Transistor_FET:BSS138 Q4
-U 1 1 5E4E73C7
-P 2550 5200
-F 0 "Q4" V 2800 5200 50  0000 C CNN
-F 1 "BSS138" V 2891 5200 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 2750 5125 50  0001 L CIN
-F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 2550 5200 50  0001 L CNN
-	1    2550 5200
-	0    1    1    0   
-$EndComp
 Text GLabel 4900 5000 2    50   Input ~ 0
 PWR
 Text GLabel 3750 5000 2    50   Input ~ 0
@@ -1116,17 +1050,6 @@ Wire Wire Line
 Wire Wire Line
 	2700 2500 2800 2500
 Connection ~ 2800 2500
-$Comp
-L Transistor_FET:BSS138 Q2
-U 1 1 5DC86628
-P 2150 2900
-F 0 "Q2" V 2493 2900 50  0000 C CNN
-F 1 "BSS138" V 2402 2900 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 2350 2825 50  0001 L CIN
-F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 2150 2900 50  0001 L CNN
-	1    2150 2900
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	2500 2900 2600 2900
 Wire Wire Line
@@ -1202,4 +1125,81 @@ Wire Wire Line
 	2300 4550 4000 4550
 Wire Wire Line
 	2300 4350 2300 4550
+$Comp
+L Device:R R2
+U 1 1 5DB02B41
+P 8250 1900
+F 0 "R2" V 8043 1900 50  0000 C CNN
+F 1 "26KOhm" V 8134 1900 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 8180 1900 50  0001 C CNN
+F 3 "~" H 8250 1900 50  0001 C CNN
+	1    8250 1900
+	-1   0    0    1   
+$EndComp
+$Comp
+L Transistor_FET:BSS138 Q2
+U 1 1 5DC86628
+P 2150 2900
+F 0 "Q2" V 2493 2900 50  0000 C CNN
+F 1 "BSS138" V 2402 2900 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 2350 2825 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 2150 2900 50  0001 L CNN
+	1    2150 2900
+	-1   0    0    1   
+$EndComp
+$Comp
+L Transistor_FET:BSS138 Q6
+U 1 1 5E4C9ACB
+P 4900 5200
+F 0 "Q6" V 5150 5200 50  0000 C CNN
+F 1 "BSS138" V 5241 5200 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5100 5125 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 4900 5200 50  0001 L CNN
+	1    4900 5200
+	0    1    1    0   
+$EndComp
+$Comp
+L Transistor_FET:BSS138 Q5
+U 1 1 5E4DFB79
+P 3750 5200
+F 0 "Q5" V 4000 5200 50  0000 C CNN
+F 1 "BSS138" V 4091 5200 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 3950 5125 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 3750 5200 50  0001 L CNN
+	1    3750 5200
+	0    1    1    0   
+$EndComp
+$Comp
+L Transistor_FET:BSS138 Q4
+U 1 1 5E4E73C7
+P 2550 5200
+F 0 "Q4" V 2800 5200 50  0000 C CNN
+F 1 "BSS138" V 2891 5200 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 2750 5125 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 2550 5200 50  0001 L CNN
+	1    2550 5200
+	0    1    1    0   
+$EndComp
+$Comp
+L Transistor_FET:BSS138 Q3
+U 1 1 5E4D8673
+P 1350 5200
+F 0 "Q3" V 1600 5200 50  0000 C CNN
+F 1 "BSS138" V 1691 5200 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 1550 5125 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/BS/BSS138.pdf" H 1350 5200 50  0001 L CNN
+	1    1350 5200
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female +Charge-1
+U 1 1 5DAD3249
+P 10600 3600
+F 0 "+Charge-1" H 10628 3576 50  0000 L CNN
+F 1 "Charge" H 10628 3485 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1210_3225Metric" H 10600 3600 50  0001 C CNN
+F 3 "~" H 10600 3600 50  0001 C CNN
+	1    10600 3600
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
