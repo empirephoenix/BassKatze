@@ -84,7 +84,7 @@ Text GLabel 4850 1400 2    50   Input ~ 0
 MOSI
 Text GLabel 5700 1250 2    50   Input ~ 0
 RAW_Spectrum
-Text GLabel 5650 2250 2    50   Input ~ 0
+Text GLabel 5700 2600 2    50   Input ~ 0
 Reset
 $Comp
 L tp4056:TP4056 U3
@@ -198,9 +198,9 @@ Wire Wire Line
 	4850 1500 4750 1500
 Wire Wire Line
 	4750 1600 4850 1600
-Text GLabel 5600 2650 2    50   Input ~ 0
+Text GLabel 5700 2400 2    50   Input ~ 0
 EQ_Band
-Text GLabel 5600 2750 2    50   Input ~ 0
+Text GLabel 5700 2500 2    50   Input ~ 0
 EQ_Reset
 Text GLabel 5650 3000 2    50   Input ~ 0
 LED1
@@ -622,17 +622,6 @@ GND
 Wire Wire Line
 	1050 6350 1350 6350
 Connection ~ 1350 6350
-$Comp
-L Device:R R5
-U 1 1 5DB0845E
-P 5600 2100
-F 0 "R5" H 5670 2146 50  0000 L CNN
-F 1 "10KOhm" H 5670 2055 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 5530 2100 50  0001 C CNN
-F 3 "~" H 5600 2100 50  0001 C CNN
-	1    5600 2100
-	-1   0    0    1   
-$EndComp
 Text GLabel 4800 3400 2    50   Input ~ 0
 CHRG
 Text GLabel 4800 3500 2    50   Input ~ 0
@@ -689,8 +678,6 @@ NoConn ~ 3550 1400
 NoConn ~ 3550 1300
 NoConn ~ 3550 1100
 NoConn ~ 9450 4500
-Text GLabel 5650 1950 2    50   Input ~ 0
-PWR
 Wire Wire Line
 	8200 1000 9850 1000
 Connection ~ 9850 1000
@@ -747,16 +734,6 @@ Wire Wire Line
 	4750 2100 4800 2100
 Wire Wire Line
 	4750 2200 4800 2200
-Wire Wire Line
-	5600 2650 5600 2400
-Wire Wire Line
-	5600 2400 4750 2400
-Wire Wire Line
-	4750 2500 5500 2500
-Wire Wire Line
-	5500 2500 5500 2750
-Wire Wire Line
-	5500 2750 5600 2750
 $Comp
 L Connector:Conn_01x02_Female J1
 U 1 1 5DB011DE
@@ -775,19 +752,6 @@ Wire Wire Line
 Wire Wire Line
 	4250 800  4150 800 
 Connection ~ 4150 800 
-Wire Wire Line
-	5650 2250 5600 2250
-Wire Wire Line
-	5650 1950 5600 1950
-Wire Wire Line
-	5600 2250 5600 2350
-Wire Wire Line
-	5600 2350 5350 2350
-Wire Wire Line
-	5350 2350 5350 2600
-Wire Wire Line
-	4750 2600 5350 2600
-Connection ~ 5600 2250
 $Comp
 L Device:R R8
 U 1 1 5DB18D48
@@ -1202,4 +1166,10 @@ F 3 "~" H 10600 3600 50  0001 C CNN
 	1    10600 3600
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	4750 2400 5700 2400
+Wire Wire Line
+	4750 2500 5700 2500
+Wire Wire Line
+	4750 2600 5700 2600
 $EndSCHEMATC
