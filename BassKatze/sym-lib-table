@@ -1,4 +1,6 @@
 (sym_lib_table
-  (lib (name tp4056)(type Legacy)(uri ${KIPRJMOD}/tp4056/tp4056.lib)(options "")(descr ""))
-  (lib (name ESP8266)(type Legacy)(uri ${KIPRJMOD}/kicad-ESP8266-master/ESP8266.lib)(options "")(descr ""))
+  (lib (name "tp4056")(type "Legacy")(uri "${KIPRJMOD}/tp4056/tp4056.lib")(options "")(descr ""))
+  (lib (name "BassKatze-rescue")(type "Legacy")(uri "${KIPRJMOD}/BassKatze-rescue.lib")(options "")(descr ""))
+  (lib (name "ESP32-DEVKITC-32D")(type "Legacy")(uri "${KIPRJMOD}/ESP32/ESP32-DEVKITC-32D.lib")(options "")(descr ""))
+  (lib (name "hy2112")(type "KiCad")(uri "${KIPRJMOD}/hy2112.kicad_sym")(options "")(descr ""))
 )
