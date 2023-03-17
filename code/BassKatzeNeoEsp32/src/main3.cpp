@@ -29,7 +29,7 @@
 #define I2S_PORT I2S_NUM_0
 
 
-const uint16_t PixelCount = 2; // this example assumes 4 pixels, making it smaller will cause a failure
+const uint16_t PixelCount = 7; 
 const uint8_t PixelPin = 25;  // make sure to set this to the correct pin, ignored for Esp8266
 
 
@@ -40,29 +40,29 @@ double vReal[SAMPLES];
 double vImag[SAMPLES];
 unsigned long newTime;
 #define NUM_BANDS       8            // To change this, you will need to change the bunch of if statements describing the mapping from bins to bands
-#define NOISE           10            // war 1000  
-#define DENOISE_MIN     10            // Set minimum signal threshold
+#define NOISE           2            // war 1000  
+#define DENOISE_MIN     2            // Set minimum signal threshold
 
 int16_t sBuffer[SAMPLES];
 
 uint16_t Rotwert;
 uint16_t Gruenwert;
 uint16_t Blauwert;
-uint16_t Weisswert;
+// uint16_t Weisswert;
 
 arduinoFFT FFT = arduinoFFT(vReal, vImag, SAMPLES, SAMPLING_FREQ);
-NeoPixelBus<NeoGrbwFeature, NeoEsp32BitBang400KbpsMethod> strip(PixelCount, PixelPin);
+NeoPixelBus<NeoGrbFeature, NeoEsp32BitBang400KbpsMethod> strip(PixelCount, PixelPin);
 
 RgbColor red(colorSaturation, 0, 0);
 RgbColor green(0, colorSaturation, 0);
 RgbColor blue(0, 0, colorSaturation);
-RgbColor white(colorSaturation);
+//RgbColor white(colorSaturation);
 RgbColor black(0);
 
 HslColor hslRed(red);
 HslColor hslGreen(green);
 HslColor hslBlue(blue);
-HslColor hslWhite(white);
+//HslColor hslWhite(white);
 HslColor hslBlack(black);
 
  
@@ -184,13 +184,17 @@ void loop() {
     }
   }  
 
-  Rotwert = min((uint16_t)255, denoise(bandValues[0]/1500));
-  Gruenwert = min((uint16_t)255, denoise(bandValues[1]/1500));
-  Blauwert = min((uint16_t)255, denoise(bandValues[2]/1500));
-  Weisswert = min((uint16_t)255, denoise(bandValues[3]/1500));
+  Rotwert = min((uint16_t)255, denoise(bandValues[0]/750));
+  Gruenwert = min((uint16_t)255, denoise((bandValues[1])/200));
+  Blauwert = min((uint16_t)255, denoise((bandValues[2] + bandValues[3] + bandValues[4])/1));
+  //Weisswert = min((uint16_t)255, denoise(bandValues[3]/1500));
   
-  strip.SetPixelColor(0, RgbwColor(Rotwert, Gruenwert, Blauwert, Weisswert));
-  strip.SetPixelColor(1, RgbwColor(Rotwert, Gruenwert, Blauwert, Weisswert));
+  //strip.SetPixelColor(0, RgbwColor(Rotwert, Gruenwert, Blauwert, Weisswert));
+  //strip.SetPixelColor(1, RgbwColor(Rotwert, Gruenwert, Blauwert, Weisswert));
+
+  for (int i = 0; i < PixelCount; i++) {
+    strip.SetPixelColor(i, RgbColor(Rotwert, Gruenwert*2, Blauwert*4));
+  }
   
   
   strip.Show();
